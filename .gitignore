@@ -1,0 +1,72 @@
+# Backup artifacts (too large, sensitive, or generated)
+original/
+extracted/
+recovered/
+working/
+
+# All-in-One WP Migration archive (regardless of location)
+*.wpress
+*.wpress.bak
+
+# Generated deployment package (rebuilt on every deploy)
+mta-tile-static.zip
+
+# Local WordPress URL tracking files
+home_url.txt
+siteurl.txt
+
+# Database dumps
+*.sql
+*.sql.gz
+!recovered/wp-content/database-utf8mb4.sql  # keep one reference dump
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+
+# Editors / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS temp
+.DS_Store
+Thumbs.db
+
+# Scratch / debug
+output/
+.playwright-cli/
+.playwright-mcp/
+
+# Backups of edited config files
+*.bak
+*.bak.*
+AGENTS.md.bak.*
+
+# Sensitive local files
+.env
+.env.local
+*.pem
+!~/.ssh/  # SSH keys live in user home, not in workspace
+
+# Temp / scratch downloads
+*.tmp
+*.bak
+
+# Git worktrees
+.worktrees/
+worktrees/
