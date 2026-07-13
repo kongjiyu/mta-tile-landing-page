@@ -25,7 +25,7 @@ jobs:
           test -f static/index.html || (echo "missing" && exit 1)
           test -f static/favicon.ico || (echo "missing" && exit 1)
       - name: Deploy via FTP
-        uses: SamKirkland/ftp-deploy@v4
+        uses: SamKirkland/ftp-deploy@v1.2.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
