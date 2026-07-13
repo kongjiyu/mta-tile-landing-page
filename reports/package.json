@@ -1,0 +1,52 @@
+{
+  "SiteURL": "https://mtatileadhesive.com",
+  "HomeURL": "https://mtatileadhesive.com",
+  "InternalSiteURL": "http://mtatileadhesive.com/",
+  "InternalHomeURL": "http://mtatileadhesive.com/",
+  "Plugin": {
+    "Version": "7.102"
+  },
+  "WordPress": {
+    "Version": "6.9.1",
+    "Absolute": "/wordpress/core/6.9.1/",
+    "Content": "/srv/htdocs/wp-content",
+    "Plugins": "/srv/htdocs/wp-content/plugins",
+    "Themes": [
+      "/srv/htdocs/wp-content/themes"
+    ],
+    "Uploads": "/srv/htdocs/wp-content/uploads",
+    "UploadsURL": "https://mtatileadhesive.com/wp-content/uploads/"
+  },
+  "Database": {
+    "Version": "11.4.9-MariaDB-log",
+    "Charset": "latin1",
+    "Collate": "latin1_swedish_ci",
+    "Prefix": "wp_"
+  },
+  "PHP": {
+    "Version": "8.2.30",
+    "System": "Linux",
+    "Integer": 8
+  },
+  "Plugins": [
+    "akismet/akismet.php",
+    "blocks-animation/blocks-animation.php",
+    "crowdsignal-forms/crowdsignal-forms.php",
+    "gutenberg/gutenberg.php",
+    "jetpack/jetpack.php",
+    "layout-grid/index.php",
+    "page-optimize/page-optimize.php",
+    "polldaddy/polldaddy.php",
+    "simple-lightbox/main.php",
+    "wordpress-seo/wp-seo.php"
+  ],
+  "Template": "yuga",
+  "Stylesheet": "yuga",
+  "Uploads": "",
+  "UploadsURL": "",
+  "Server": {
+    ".htaccess": "",
+    "web.config": ""
+  },
+  "EncryptedSignature": "EBWVvf5IprrKmkUX4qrv2X20wRiCgarcbiaKSWeIgeuP4I1hPQD1ZxqdptxWz2vS9eigVaVmN+p9ADlYNz3STYQ7OLzdct0veiB4vIuV3nCAGkoB9G4n6rvX5uxmgv66MsQB+BSNJNaXuNptWfT8A0RBTglOeiUlmF77Jq4Jl0D42N5/ekbuUCYgekVj2Wthwu5mNNE5MECrjEyMLbHxaA=="
+}
