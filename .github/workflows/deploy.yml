@@ -24,16 +24,17 @@ jobs:
         run: |
           test -f static/index.html || (echo "missing" && exit 1)
           test -f static/favicon.ico || (echo "missing" && exit 1)
-      - name: Deploy via FTP
+      - name: Deploy via FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
           local-dir: ./static/
           server-dir: /public_html/
+          state-name: ftp-deploy-state
           exclude: |
             .git/**
             .DS_Store
-          state-name: ftp-deploy-state
-          dangerously-clean-on-failure: false
