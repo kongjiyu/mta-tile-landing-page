@@ -126,23 +126,6 @@ PRODUCTS = {
         ],
         "coverage": [],
     },
-    "mta-grout": {
-        "code": "MTA GROUT",
-        "type": "Floor & Wall Grout Joint Filler",
-        "short": "Cementitious grout joint filler for floors and walls.",
-        "description": "MTA Grout is currently being prepared for release. Product specifications and availability will be published when confirmed.",
-        "image": "wp-content/uploads/2025/04/MTA-Packaging-grout-1.png",
-        "package": "20 kg / bag",
-        "class": "Coming soon",
-        "use": "Floor + wall joints",
-        "pdf": None,
-        "coming": True,
-        "features": [],
-        "limitations": [],
-        "technical_intro": "Technical data will be published when the product is released.",
-        "technical": [],
-        "coverage": [],
-    },
 }
 
 
@@ -203,7 +186,7 @@ def footer(prefix: str) -> str:
         <p>Reliable tile adhesive systems and construction materials for real-world applications across Malaysia.</p>
       </div>
       <div class="footer-col"><h3>Products</h3>
-        <a href="{rel(prefix, 'mta991/index.html')}">MTA 991</a><a href="{rel(prefix, 'mta993/index.html')}">MTA 993</a><a href="{rel(prefix, 'mta_admix_123/index.html')}">MTA Admix 123</a><a href="{rel(prefix, 'mta-grout/index.html')}">MTA Grout</a>
+        <a href="{rel(prefix, 'mta991/index.html')}">MTA 991</a><a href="{rel(prefix, 'mta993/index.html')}">MTA 993</a><a href="{rel(prefix, 'mta_admix_123/index.html')}">MTA Admix 123</a>
       </div>
       <div class="footer-col"><h3>Contact</h3>
         <a href="tel:+60124148562">+60 12-414 8562</a><a href="mailto:{EMAIL}">{EMAIL}</a><a href="{rel(prefix, 'contact-us/index.html')}">Shah Alam, Selangor</a>
@@ -311,7 +294,6 @@ def home_page() -> str:
       {product_card(prefix, 'mta991', '01')}
       {product_card(prefix, 'mta993', '02')}
       {product_card(prefix, 'mta_admix_123', '03')}
-      {product_card(prefix, 'mta-grout', '04')}
     </div>
   </div>
 </section>
@@ -336,7 +318,7 @@ def home_page() -> str:
   </div>
 </section>
 <section class="cta-band section-tight"><div class="wrap cta-inner reveal"><div><p class="eyebrow">Product enquiry</p><h2>Tell us which MTA product you need.</h2></div><a class="button" href="{wa_url('Hello MTA, I would like product information for a wholesale or distribution enquiry.')}" target="_blank" rel="noopener">Start on WhatsApp <span class="arrow">↗</span></a></div></section>'''
-    return page(title="MTA Tiles Adhesive Specialist | Professional Tile Installation Systems", description="Explore MTA tile adhesives, grout and admixtures for professional installation systems in Malaysia. View technical data, download catalogues and enquire on WhatsApp.", path="/", prefix="", image="wp-content/uploads/2025/04/banner_background-1024x683.png", main=main, wa_message="Hello MTA, I would like to enquire about your products for wholesale or distribution.", schema_type="LocalBusiness")
+    return page(title="MTA Tiles Adhesive Specialist | Professional Tile Installation Systems", description="Explore MTA tile adhesives and admixtures for professional installation systems in Malaysia. View technical data, download catalogues and enquire on WhatsApp.", path="/", prefix="", image="wp-content/uploads/2025/04/banner_background-1024x683.png", main=main, wa_message="Hello MTA, I would like to enquire about your products for wholesale or distribution.", schema_type="LocalBusiness")
 
 
 def detail_block(number: str, title: str, content: str, open_by_default: bool = False) -> str:

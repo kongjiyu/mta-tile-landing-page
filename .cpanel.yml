@@ -2,4 +2,5 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/mtatilea/public_html/
+    - /bin/rm -rf "$DEPLOYPATH/mta-grout"
     - /bin/cp -R static/. "$DEPLOYPATH"
