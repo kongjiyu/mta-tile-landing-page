@@ -137,6 +137,26 @@ def wa_url(message: str) -> str:
     return f"https://wa.me/{PHONE}?text={quote(message)}"
 
 
+ICON_PATHS = {
+    "arrow-down": '<path d="M12 5v14"/><path d="m19 12-7 7-7-7"/>',
+    "arrow-right": '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+    "arrow-up-right": '<path d="M7 17 17 7"/><path d="M7 7h10v10"/>',
+    "close": '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    "menu": '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>',
+}
+
+
+def icon(name: str, extra_class: str = "") -> str:
+    """Return a dependency-free Lucide-style interface icon."""
+    classes = f"icon {extra_class}".strip()
+    return (
+        f'<svg class="{classes}" aria-hidden="true" focusable="false" '
+        'viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+        'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        f'{ICON_PATHS[name]}</svg>'
+    )
+
+
 def header(prefix: str) -> str:
     product_links = "".join(
         f'''<a href="{rel(prefix, slug + '/index.html')}">
@@ -146,7 +166,7 @@ def header(prefix: str) -> str:
         for slug, product in PRODUCTS.items()
     )
     mobile_products = "".join(
-        f'<a href="{rel(prefix, slug + "/index.html")}">{html.escape(product["code"])} <span aria-hidden="true">→</span></a>'
+        f'<a href="{rel(prefix, slug + "/index.html")}">{html.escape(product["code"])} {icon("arrow-right")}</a>'
         for slug, product in PRODUCTS.items()
     )
     return f'''<a class="skip-link" href="#main">Skip to content</a>
@@ -164,15 +184,15 @@ def header(prefix: str) -> str:
       <a href="{rel(prefix, 'about-us/index.html')}">About</a>
       <a href="{rel(prefix, 'contact-us/index.html')}">Contact</a>
     </nav>
-    <a class="button button-red header-cta" href="{wa_url('Hello MTA, I would like to enquire about your products for wholesale or distribution.')}" target="_blank" rel="noopener">WhatsApp enquiry <span class="arrow">↗</span></a>
-    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open menu">☰</button>
+    <a class="button button-red header-cta" href="{wa_url('Hello MTA, I would like to enquire about your products for wholesale or distribution.')}" target="_blank" rel="noopener">WhatsApp enquiry {icon('arrow-up-right', 'arrow')}</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-navigation" aria-label="Open menu">{icon('menu', 'menu-icon menu-icon-open')}{icon('close', 'menu-icon menu-icon-close')}</button>
   </div>
   <nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation">
     <span class="mobile-label">Products</span>
     {mobile_products}
     <span class="mobile-label">Company</span>
-    <a href="{rel(prefix, 'about-us/index.html')}">About MTA <span aria-hidden="true">→</span></a>
-    <a href="{rel(prefix, 'contact-us/index.html')}">Contact <span aria-hidden="true">→</span></a>
+    <a href="{rel(prefix, 'about-us/index.html')}">About MTA {icon('arrow-right')}</a>
+    <a href="{rel(prefix, 'contact-us/index.html')}">Contact {icon('arrow-right')}</a>
   </nav>
 </header>'''
 
@@ -198,7 +218,7 @@ def footer(prefix: str) -> str:
 
 
 def mobile_wa(message: str) -> str:
-    return f'<a class="mobile-wa" href="{wa_url(message)}" target="_blank" rel="noopener">WhatsApp enquiry <span aria-hidden="true">↗</span></a>'
+    return f'<a class="mobile-wa" href="{wa_url(message)}" target="_blank" rel="noopener">WhatsApp enquiry {icon("arrow-up-right", "arrow")}</a>'
 
 
 def seo_head(*, prefix: str, title: str, description: str, path: str, image: str, schema_type: str = "WebPage", product: dict | None = None) -> str:
@@ -265,7 +285,7 @@ def product_card(prefix: str, slug: str, index: str) -> str:
     return f'''<a class="product-card reveal" href="{rel(prefix, slug + '/index.html')}">
       <span class="index">{index}</span>
       <img src="{rel(prefix, product['image'])}" alt="{html.escape(product['code'])} product packaging" loading="lazy">
-      <div class="product-meta"><div>{badge}<h3>{html.escape(product['code'])}</h3><p>{html.escape(product['type'])}</p></div><span class="circle-arrow" aria-hidden="true">↗</span></div>
+      <div class="product-meta"><div>{badge}<h3>{html.escape(product['code'])}</h3><p>{html.escape(product['type'])}</p></div><span class="circle-arrow" aria-hidden="true">{icon('arrow-up-right')}</span></div>
     </a>'''
 
 
@@ -278,7 +298,7 @@ def home_page() -> str:
       <p class="eyebrow">Tile installation systems · Malaysia</p>
       <h1>Strength beneath <span class="accent">every surface.</span></h1>
       <p class="lede">High-performance tile adhesives and admixtures engineered for consistent application, durable results, and professional supply.</p>
-      <div class="button-row"><a class="button button-red" href="#products">Explore products <span class="arrow">↓</span></a><a class="button" href="{wa_url('Hello MTA, I would like to enquire about your products for wholesale or distribution.')}" target="_blank" rel="noopener">WhatsApp enquiry <span class="arrow">↗</span></a></div>
+      <div class="button-row"><a class="button button-red" href="#products">Explore products {icon('arrow-down', 'arrow')}</a><a class="button" href="{wa_url('Hello MTA, I would like to enquire about your products for wholesale or distribution.')}" target="_blank" rel="noopener">WhatsApp enquiry {icon('arrow-up-right', 'arrow')}</a></div>
     </div>
     <div class="hero-products" aria-label="MTA product range">
       <p class="hero-note">Made for the demands of walls, floors, façades, wet areas, and pools.</p>
@@ -317,7 +337,7 @@ def home_page() -> str:
     </div>
   </div>
 </section>
-<section class="cta-band section-tight"><div class="wrap cta-inner reveal"><div><p class="eyebrow">Product enquiry</p><h2>Tell us which MTA product you need.</h2></div><a class="button" href="{wa_url('Hello MTA, I would like product information for a wholesale or distribution enquiry.')}" target="_blank" rel="noopener">Start on WhatsApp <span class="arrow">↗</span></a></div></section>'''
+<section class="cta-band section-tight"><div class="wrap cta-inner reveal"><div><p class="eyebrow">Product enquiry</p><h2>Tell us which MTA product you need.</h2></div><a class="button" href="{wa_url('Hello MTA, I would like product information for a wholesale or distribution enquiry.')}" target="_blank" rel="noopener">Start on WhatsApp {icon('arrow-up-right', 'arrow')}</a></div></section>'''
     return page(title="MTA Tiles Adhesive Specialist | Professional Tile Installation Systems", description="Explore MTA tile adhesives and admixtures for professional installation systems in Malaysia. View technical data, download catalogues and enquire on WhatsApp.", path="/", prefix="", image="wp-content/uploads/2025/04/banner_background-1024x683.png", main=main, wa_message="Hello MTA, I would like to enquire about your products for wholesale or distribution.", schema_type="LocalBusiness")
 
 
@@ -344,7 +364,7 @@ def product_page(slug: str) -> str:
     prefix = "../"
     message = f"Hello MTA, I would like to enquire about {p['code']} for wholesale or distribution. Product page: {BASE_URL}/{slug}/"
     badge = '<span class="coming-badge">Coming soon</span>' if p.get("coming") else ""
-    pdf_button = f'<a class="button button-light" href="{rel(prefix, p["pdf"])}" target="_blank" rel="noopener">Download technical PDF <span class="arrow">↓</span></a>' if p.get("pdf") else ""
+    pdf_button = f'<a class="button button-light" href="{rel(prefix, p["pdf"])}" target="_blank" rel="noopener">Download technical PDF {icon("arrow-down", "arrow")}</a>' if p.get("pdf") else ""
     coverage = table_html(p["coverage"], "Coverage may vary depending on the nature and flatness of the substrate.") if p["coverage"] else "<p>Coverage data will be published when confirmed.</p>"
     related = "".join(
         f'''<a class="related-card" href="{rel(prefix, other_slug + '/index.html')}"><img src="{rel(prefix, other['image'])}" alt="{html.escape(other['code'])} packaging" loading="lazy"><h3>{html.escape(other['code'])}</h3><span>{html.escape(other['type'])}</span></a>'''
@@ -357,7 +377,7 @@ def product_page(slug: str) -> str:
     <div class="product-visual" data-code="{html.escape(p['code'])}"><img src="{rel(prefix, p['image'])}" alt="{html.escape(p['code'])} product packaging"></div>
     <div class="product-summary reveal">{badge}<p class="eyebrow">MTA product system</p><h1>{html.escape(p['code'])}</h1><p class="product-type">{html.escape(p['type'])}</p><p class="product-description">{html.escape(p['description'])}</p>
       <div class="spec-strip"><div><small>Pack size</small><strong>{html.escape(p['package'])}</strong></div><div><small>Classification</small><strong>{html.escape(p['class'])}</strong></div><div><small>Application</small><strong>{html.escape(p['use'])}</strong></div></div>
-      <div class="button-row"><a class="button button-red" href="{wa_url(message)}" target="_blank" rel="noopener">Enquire on WhatsApp <span class="arrow">↗</span></a>{pdf_button}</div>
+      <div class="button-row"><a class="button button-red" href="{wa_url(message)}" target="_blank" rel="noopener">Enquire on WhatsApp {icon('arrow-up-right', 'arrow')}</a>{pdf_button}</div>
     </div>
   </div>
 </section>
@@ -373,7 +393,7 @@ def product_page(slug: str) -> str:
   </div>
 </section>
 <section class="section-tight"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">Continue browsing</p><h2>Other MTA products.</h2></div><p class="lede">Compare the rest of the range or ask our team which system matches your application.</p></div><div class="related-grid">{related}</div></div></section>
-<section class="cta-band section-tight"><div class="wrap cta-inner"><div><p class="eyebrow">Wholesale enquiry</p><h2>Ask about {html.escape(p['code'])}.</h2></div><a class="button" href="{wa_url(message)}" target="_blank" rel="noopener">WhatsApp MTA <span class="arrow">↗</span></a></div></section>'''
+<section class="cta-band section-tight"><div class="wrap cta-inner"><div><p class="eyebrow">Wholesale enquiry</p><h2>Ask about {html.escape(p['code'])}.</h2></div><a class="button" href="{wa_url(message)}" target="_blank" rel="noopener">WhatsApp MTA {icon('arrow-up-right', 'arrow')}</a></div></section>'''
     return page(title=f"{p['code']} | {p['type']} | MTA", description=p["description"], path=f"/{slug}/", prefix=prefix, image=p["image"], main=main, wa_message=message, product=p)
 
 
@@ -388,7 +408,7 @@ def about_page() -> str:
   <article class="capability"><p class="eyebrow">02</p><h3>Dry mix mortars</h3><p>Mortar products for masonry and supporting construction applications.</p></article>
   <article class="capability"><p class="eyebrow">03</p><h3>Waterproofing, stone treatment & construction materials</h3><p>Supporting products for water protection, surface maintenance, and residential, commercial, or industrial work.</p></article>
 </div></div></section>
-<section class="cta-band section-tight"><div class="wrap cta-inner"><div><p class="eyebrow">Talk to MTA</p><h2>Discuss your product requirements.</h2></div><a class="button" href="{wa_url('Hello MTA, I would like to discuss your products for wholesale or distribution.')}" target="_blank" rel="noopener">Start on WhatsApp <span class="arrow">↗</span></a></div></section>'''
+<section class="cta-band section-tight"><div class="wrap cta-inner"><div><p class="eyebrow">Talk to MTA</p><h2>Discuss your product requirements.</h2></div><a class="button" href="{wa_url('Hello MTA, I would like to discuss your products for wholesale or distribution.')}" target="_blank" rel="noopener">Start on WhatsApp {icon('arrow-up-right', 'arrow')}</a></div></section>'''
     return page(title="About MTA Tile Adhesive Specialist Sdn Bhd", description="Learn about MTA Tile Adhesive Specialist Sdn Bhd, its tile-adhesive expertise, mission, and construction product capabilities in Malaysia.", path="/about-us/", prefix=prefix, image="wp-content/uploads/2025/04/mix_mortars_image-e1744421499931-1024x577.png", main=main, wa_message="Hello MTA, I would like to discuss your products for wholesale or distribution.")
 
 
@@ -405,14 +425,14 @@ def contact_page() -> str:
     <div class="contact-item"><dt>Address</dt><dd>{ADDRESS}</dd></div>
     <div class="contact-item"><dt>Hours</dt><dd>Monday–Friday<br>9:00am–6:00pm</dd></div>
   </dl><p class="map-note">Include the product model, required quantity, and delivery location in your enquiry where possible.</p></div>
-  <div class="whatsapp-panel reveal"><div class="wa-mark">WA</div><div><p class="eyebrow">Fastest response</p><h2>Start with WhatsApp.</h2><p>Send the product model and a short note about your requirement. The pre-filled message can be edited before sending.</p></div><a class="button" href="{wa_url(message)}" target="_blank" rel="noopener">Open WhatsApp <span class="arrow">↗</span></a></div>
+  <div class="whatsapp-panel reveal"><div class="wa-mark">WA</div><div><p class="eyebrow">Fastest response</p><h2>Start with WhatsApp.</h2><p>Send the product model and a short note about your requirement. The pre-filled message can be edited before sending.</p></div><a class="button" href="{wa_url(message)}" target="_blank" rel="noopener">Open WhatsApp {icon('arrow-up-right', 'arrow')}</a></div>
 </div></section>
 <section class="section-tight"><div class="wrap"><div class="section-heading"><div><p class="eyebrow">Before you enquire</p><h2>Useful details to include.</h2></div><p class="lede">Product model, estimated quantity, project or resale use, and delivery location help the team understand the request more quickly.</p></div></div></section>'''
     return page(title="Contact MTA Tiles Adhesive Specialist", description=f"Contact MTA Tile Adhesive Specialist Sdn Bhd in Shah Alam by WhatsApp, phone or email for product and wholesale enquiries.", path="/contact-us/", prefix=prefix, image=LOGO, main=main, wa_message=message, schema_type="ContactPage")
 
 
 def error_page() -> str:
-    return f'''<!doctype html><html lang="en"><head>{seo_head(prefix='', title='Page Not Found | MTA', description='The requested MTA page could not be found.', path='/404.html', image=LOGO)}</head><body>{header('')}<main id="main"><section class="page-hero" data-index="404"><div class="wrap"><p class="eyebrow">404 · Page not found</p><h1>This surface has not been prepared.</h1><p class="lede">The page may have moved. Return to the product range or contact MTA for help.</p><div class="button-row" style="margin-top:2rem"><a class="button button-red" href="index.html">View products</a><a class="button button-light" href="contact-us/index.html">Contact MTA</a></div></div></section></main>{footer('')}<script src="mta-site.js" defer></script></body></html>'''
+    return f'''<!doctype html><html lang="en"><head>{seo_head(prefix='', title='Page Not Found | MTA', description='The requested MTA page could not be found.', path='/404.html', image=LOGO)}</head><body>{header('')}<main id="main"><section class="page-hero" data-index="404"><div class="wrap"><p class="eyebrow">404 · Page not found</p><h1>This surface has not been prepared.</h1><p class="lede">The page may have moved. Return to the product range or contact MTA for help.</p><div class="button-row" style="margin-top:2rem"><a class="button button-red" href="index.html">View products {icon('arrow-right', 'arrow')}</a><a class="button button-light" href="contact-us/index.html">Contact MTA {icon('arrow-right', 'arrow')}</a></div></div></section></main>{footer('')}<script src="mta-site.js" defer></script></body></html>'''
 
 
 def write(relative_path: str, content: str) -> None:

@@ -30,7 +30,6 @@
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       mobileNav.classList.toggle("is-open", open);
       document.body.classList.toggle("menu-open", open);
-      toggle.textContent = open ? "×" : "☰";
     };
     toggle.addEventListener("click", () => setMenu(toggle.getAttribute("aria-expanded") !== "true"));
     mobileNav.addEventListener("click", (event) => {
@@ -65,7 +64,7 @@
     closeButton.className = "photo-lightbox-close";
     closeButton.type = "button";
     closeButton.setAttribute("aria-label", "Close enlarged image");
-    closeButton.textContent = "×";
+    closeButton.innerHTML = '<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>';
     shell.append(enlargedImage, caption);
     lightbox.append(shell, closeButton);
     document.body.appendChild(lightbox);
